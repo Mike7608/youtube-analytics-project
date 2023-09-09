@@ -1,12 +1,9 @@
 import json
-import os
-
-from googleapiclient.discovery import build
+from src.youtu import YouTube
 
 
-class Channel:
+class Channel(YouTube):
     """Класс для ютуб-канала"""
-    __api_key: str = os.getenv('YT_API_KEY')
 
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
@@ -60,13 +57,4 @@ class Channel:
         """Возвращает id канала"""
         return self.__channel_id
 
-    @classmethod
-    def get_service(cls):
-        """Возвращает объект для работы с YouTube API"""
-        youtube = build('youtube', 'v3', developerKey=cls.__api_key)
-        return youtube
 
-    def to_json(self, filename):
-        """Сохраняем в файл значения атрибутов экземпляра Channel"""
-        with open(filename, "w") as file:
-            json.dump(self.__dict__, file)
