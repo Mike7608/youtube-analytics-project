@@ -1,10 +1,9 @@
 import os
-from googleapiclient.discovery import build
+from src.youtu import YouTube
 
 
-class Video:
+class Video(YouTube):
     """Класс для ютуб видео"""
-    __api_key: str = os.getenv('YT_API_KEY')
 
     def __init__(self, video_id: str) -> None:
 
@@ -20,12 +19,6 @@ class Video:
 
     def __str__(self):
         return self.video_title
-
-    @classmethod
-    def get_service(cls):
-        """Возвращает объект для работы с YouTube API"""
-        youtube = build('youtube', 'v3', developerKey=cls.__api_key)
-        return youtube
 
 
 class PLVideo(Video):
